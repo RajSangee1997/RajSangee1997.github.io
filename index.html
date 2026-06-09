@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V. Rajkumar | Unity Game Developer & Game Designer</title>
+    <meta name="description" content="Portfolio of V. Rajkumar - Unity Game Developer, Game Designer, and 2D & 3D Game Development Specialist">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f4f8; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .custom-cursor {
+            width: 20px; height: 20px;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px; height: 6px;
+            background: #2563eb;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes fillProgress { from { width: 0%; } }
+        .progress-fill { animation: fillProgress 1.5s ease-out forwards; }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #2563eb, #7c3aed, #db2777);
+            transform: translateX(-50%);
+        }
+
+        .loader {
+            width: 48px; height: 48px;
+            border: 3px solid #e2e8f0;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        .loader::after {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-bottom-color: #2563eb;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            z-index: 100;
+            transition: width 0.1s;
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+
+        html { scroll-behavior: smooth; }
+
+        section { position: relative; z-index: 1; }
+
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-glow:hover::before { left: 100%; }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+        }
+
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .video-player-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .pdf-viewer-container {
+            width: 100%;
+            height: 80vh;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .pdf-viewer-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .profile-photo-container {
+            position: relative;
+            display: inline-block;
+        }
+        .profile-photo-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);
+            z-index: -1;
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        .profile-photo-glow {
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            z-index: -2;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .text-gray-300 { color: #475569 !important; }
+        .text-gray-400 { color: #64748b !important; }
+        .text-gray-500 { color: #94a3b8 !important; }
+        .bg-gray-800 { background-color: #e2e8f0 !important; }
+        .border-gray-700 { border-color: #cbd5e1 !important; }
+        .border-gray-800 { border-color: #e2e8f0 !important; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { motion, AnimatePresence } = window.Motion;
+
+        const ParticleBackground = () => {
+            const canvasRef = useRef(null);
+            useEffect(() => {
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                let animationId;
+
+                const resize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+                resize();
+                window.addEventListener('resize', resize);
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 2 + 0.5;
+                        this.speedX = Math.random() * 1 - 0.5;
+                        this.speedY = Math.random() * 1 - 0.5;
+                        this.opacity = Math.random() * 0.3 + 0.1;
+                    }
+                    update() {
+                        this.x += this.speedX;
+                        this.y += this.speedY;
+                        if (this.x > canvas.width) this.x = 0;
+                        if (this.x < 0) this.x = canvas.width;
+                        if (this.y > canvas.height) this.y = 0;
+                        if (this.y < 0) this.y = canvas.height;
+                    }
+                    draw() {
+                        ctx.fillStyle = `rgba(37, 99, 235, ${this.opacity})`;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                const init = () => {
+                    particles = [];
+                    const particleCount = Math.min(window.innerWidth / 10, 100);
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                };
+                init();
+
+                const animate = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(particle => {
+                        particle.update();
+                        particle.draw();
+                    });
+                    particles.forEach((a, i) => {
+                        particles.slice(i + 1).forEach(b => {
+                            const dx = a.x - b.x;
+                            const dy = a.y - b.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            if (distance < 100) {
+                                ctx.strokeStyle = `rgba(37, 99, 235, ${0.08 * (1 - distance / 100)})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(a.x, a.y);
+                                ctx.lineTo(b.x, b.y);
+                                ctx.stroke();
+                            }
+                        });
+                    });
+                    animationId = requestAnimationFrame(animate);
+                };
+                animate();
+
+                return () => {
+                    cancelAnimationFrame(animationId);
+                    window.removeEventListener('resize', resize);
+                };
+            }, []);
+
+            return <canvas ref={canvasRef} id="particles-canvas" />;
+        };
+
+        const CustomCursor = () => {
+            const [position, setPosition] = useState({ x: 0, y: 0 });
+            const [isHovering, setIsHovering] = useState(false);
+
+            useEffect(() => {
+                const handleMouseMove = (e) => {
+                    setPosition({ x: e.clientX, y: e.clientY });
+                };
+                const handleMouseOver = (e) => {
+                    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
+                        setIsHovering(true);
+                    } else {
+                        setIsHovering(false);
+                    }
+                };
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mouseover', handleMouseOver);
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('mouseover', handleMouseOver);
+                };
+            }, []);
+
+            if (typeof window !== 'undefined' && window.innerWidth < 768) return null;
+
+            return (
+                <>
+                    <div className="custom-cursor hidden md:block"
+                        style={{ left: position.x - 10, top: position.y - 10,
+                            transform: `scale(${isHovering ? 1.5 : 1})`,
+                            transition: 'transform 0.2s ease' }} />
+                    <div className="cursor-dot hidden md:block"
+                        style={{ left: position.x - 3, top: position.y - 3 }} />
+                </>
+            );
+        };
+
+        const ScrollProgress = () => {
+            const [progress, setProgress] = useState(0);
+            useEffect(() => {
+                const handleScroll = () => {
+                    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollProgress = (window.scrollY / totalHeight) * 100;
+                    setProgress(scrollProgress);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+            return <div className="scroll-progress" style={{ width: `${progress}%` }} />;
+        };
+
+        const LoadingScreen = ({ onComplete }) => {
+            const [progress, setProgress] = useState(0);
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setProgress(prev => {
+                        if (prev >= 100) {
+                            clearInterval(interval);
+                            setTimeout(onComplete, 500);
+                            return 100;
+                        }
+                        return prev + Math.random() * 15;
+                    });
+                }, 200);
+                return () => clearInterval(interval);
+            }, [onComplete]);
+
+            return (
+                <motion.div
+                    className="fixed inset-0 z-[9999] bg-[#f0f4f8] flex flex-col items-center justify-center"
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className="loader mb-8"></div>
+                    <div className="font-orbitron text-2xl font-bold mb-4 gradient-text">V. RAJKUMAR</div>
+                    <div className="w-64 h-1 bg-gray-200 rounded-full overflow-hidden">
+                        <motion.div className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${Math.min(progress, 100)}%` }} />
+                    </div>
+                    <div className="mt-2 text-sm text-gray-500">{Math.min(Math.round(progress), 100)}%</div>
+                </motion.div>
+            );
+        };
+
+        const Navigation = () => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setIsScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const navLinks = [
+                { name: 'Home', href: '#home' },
+                { name: 'About', href: '#about' },
+                { name: 'Skills', href: '#skills' },
+                { name: 'Projects', href: '#projects' },
+                { name: 'Experience', href: '#experience' },
+                { name: 'Education', href: '#education' },
+                { name: 'Contact', href: '#contact' }
+            ];
+
+            const scrollToSection = (href) => {
+                setIsMobileMenuOpen(false);
+                const element = document.querySelector(href);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            return (
+                <>
+                    <motion.nav
+                        initial={{ y: -100 }}
+                        animate={{ y: 0 }}
+                        transition={{ duration: 0.6, ease: 'easeOut' }}
+                        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                            isScrolled ? 'glass-strong py-3 shadow-lg' : 'bg-transparent py-5'
+                        }`}
+                    >
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex items-center justify-between">
+                                <motion.a href="#home"
+                                    onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
+                                    className="font-orbitron text-xl font-bold gradient-text"
+                                    whileHover={{ scale: 1.05 }}>
+                                    V. RAJKUMAR
+                                </motion.a>
+
+                                <div className="hidden md:flex items-center space-x-8">
+                                    {navLinks.map((link) => (
+                                        <a key={link.name} href={link.href}
+                                            onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                                            className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors relative group">
+                                            {link.name}
+                                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
+                                        </a>
+                                    ))}
+                                </div>
+
+                                <button className="md:hidden p-2 text-slate-700"
+                                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                    <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
+                                </button>
+                            </div>
+                        </div>
+                    </motion.nav>
+
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, x: '100%' }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: '100%' }}
+                                transition={{ type: 'tween', duration: 0.3 }}
+                                className="fixed inset-0 z-40 glass-strong md:hidden"
+                            >
+                                <div className="flex flex-col items-center justify-center h-full space-y-8">
+                                    {navLinks.map((link) => (
+                                        <a key={link.name} href={link.href}
+                                            onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                                            className="text-2xl font-medium text-slate-700 hover:text-blue-600 transition-colors">
+                                            {link.name}
+                                        </a>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </>
+            );
+        };
+
+        const ProfilePhoto = ({ src, size = 'large', className = '' }) => {
+            const sizeClasses = {
+                small: 'w-20 h-20 md:w-24 md:h-24',
+                medium: 'w-32 h-32 md:w-40 md:h-40',
+                large: 'w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64'
+            };
+
+            return (
+                <motion.div className={`profile-photo-container ${className}`}
+                    initial={{ scale: 0, rotate: -10 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: 'spring', damping: 15, duration: 0.8 }}>
+                    <div className="profile-photo-glow"></div>
+                    <div className="profile-photo-ring"></div>
+                    <div className={`${sizeClasses[size]} rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10`}>
+                        <img src={src} alt="V. Rajkumar" className="w-full h-full object-cover"
+                            onError={(e) => { e.target.src = 'https://via.placeholder.com/400x400/2563eb/ffffff?text=V+R'; }} />
+                    </div>
+                </motion.div>
+            );
+        };
+
+        const PDFViewerModal = ({ pdfSrc, onClose }) => {
+            return (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+                    onClick={onClose}
+                >
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.9, opacity: 0 }}
+                        transition={{ type: 'spring', damping: 25 }}
+                        className="glass-strong rounded-3xl max-w-5xl w-full max-h-[95vh] border border-blue-100 shadow-2xl overflow-hidden pdf-viewer-modal"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="pdf-viewer-header flex items-center justify-between p-4 border-b border-slate-200">
+                            <div className="flex items-center gap-3">
+                                <i className="fas fa-file-pdf text-red-500 text-xl"></i>
+                                <h3 className="text-lg font-bold text-slate-800">Resume - V. Rajkumar</h3>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <a href={pdfSrc} download="V_Rajkumar_Resume.pdf"
+                                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium hover:shadow-lg transition-all">
+                                    <i className="fas fa-download mr-2"></i>Download
+                                </a>
+                                <button onClick={onClose}
+                                    className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-slate-100 transition-colors">
+                                    <i className="fas fa-times text-slate-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="pdf-viewer-body">
+                            <iframe 
+                                src={pdfSrc} 
+                                title="Resume PDF"
+                                style={{ width: '100%', height: '100%', border: 'none' }}
+                            />
+                        </div>
+                    </motion.div>
+                </motion.div>
+            );
+        };
+
+        const HeroSection = () => {
+            // GitHub raw URL for your PDF - replace with your actual GitHub raw URL
+            const resumePath = 'resume/V_Rajkumar_Resume.pdf'; // Path to resume
+            // Use relative path for GitHub Pages (NO leading slash)
+            // Make sure your image is in: images/profile.jpg (exact case match)
+            const profilePhotoPath = 'images/profile.jpg';
+
+            return (
+                <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-100/50 via-purple-50/30 to-transparent pointer-events-none" />
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="flex-shrink-0"
+                            >
+                                <ProfilePhoto src={profilePhotoPath} size="large" />
+                            </motion.div>
+
+                            <div className="text-center lg:text-left flex-1">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.4 }}
+                                >
+                                    <div className="inline-block mb-4 px-4 py-2 rounded-full glass text-blue-600 text-sm font-medium border border-blue-200">
+                                        <i className="fas fa-gamepad mr-2"></i>
+                                        Unity Game Developer
+                                    </div>
+                                </motion.div>
+
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.5 }}
+                                    className="font-orbitron text-5xl md:text-6xl lg:text-7xl font-black mb-6 gradient-text leading-tight"
+                                >
+                                    V. RAJKUMAR
+                                </motion.h1>
+
+                                <motion.p
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.6 }}
+                                    className="text-xl md:text-2xl text-slate-600 mb-4 font-medium"
+                                >
+                                    Unity Game Developer | Game Designer | 2D & 3D Game Development
+                                </motion.p>
+
+                                <motion.p
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.7 }}
+                                    className="max-w-2xl mx-auto lg:mx-0 text-slate-500 text-lg mb-8 leading-relaxed"
+                                >
+                                    Passionate Game Designer and Unity Developer with experience in developing immersive 2D and 3D games using Unity. Skilled in gameplay programming, game mechanics, level design, UI implementation, and creating engaging player experiences.
+                                </motion.p>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.8 }}
+                                    className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+                                >
+                                    <a href="resume/V_Rajkumar_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                                        className="btn-glow px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all">
+                                        <i className="fas fa-file-pdf mr-2"></i>View Resume
+                                    </a>
+                                    <a href="resume/V_Rajkumar_Resume.pdf" download="V_Rajkumar_Resume.pdf"
+                                        className="btn-glow px-8 py-4 rounded-full glass text-slate-700 font-semibold hover:bg-white/80 transition-all border border-blue-200 shadow-lg shadow-blue-100">
+                                        <i className="fas fa-download mr-2"></i>Download Resume
+                                    </a>
+                                    <a href="#projects"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            document.querySelector('#projects').scrollIntoView({ behavior: 'smooth' });
+                                        }}
+                                        className="btn-glow px-8 py-4 rounded-full glass text-slate-700 font-semibold hover:bg-white/80 transition-all border border-slate-200">
+                                        <i className="fas fa-eye mr-2"></i>View Projects
+                                    </a>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <motion.div className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ repeat: Infinity, duration: 2 }}>
+                        <div className="w-6 h-10 rounded-full border-2 border-slate-400 flex items-start justify-center p-2">
+                            <motion.div className="w-1.5 h-3 bg-blue-500 rounded-full"
+                                animate={{ y: [0, 12, 0] }}
+                                transition={{ repeat: Infinity, duration: 2 }} />
+                        </div>
+                    </motion.div>
+                </section>
+            );
+        };
+
+        const AboutSection = () => {
+            const stats = [
+                { label: 'Experience', value: '5+ Years', icon: 'fa-briefcase' },
+                { label: 'Education', value: 'B.E. + Game Design', icon: 'fa-graduation-cap' },
+                { label: 'Current Learning', value: 'Game Art & Design', icon: 'fa-book-open' },
+                { label: 'Career Goal', value: 'AAA Game Dev', icon: 'fa-gamepad' }
+            ];
+            // Use relative path for GitHub Pages (NO leading slash)
+            // Make sure your image is in: images/profile.jpg (exact case match)
+            const profilePhotoPath = 'images/profile.jpg';
+
+            return (
+                <section id="about" className="py-20 md:py-32 relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 gradient-text">About Me</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
+                        </motion.div>
+
+                        <div className="grid lg:grid-cols-5 gap-12 items-center">
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="lg:col-span-2 flex justify-center"
+                            >
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-3xl transform rotate-3"></div>
+                                    <div className="glass rounded-3xl p-2 border border-blue-100 shadow-xl relative">
+                                        <img src={profilePhotoPath} alt="V. Rajkumar"
+                                            className="w-full max-w-sm rounded-2xl object-cover aspect-[4/5]"
+                                            onError={(e) => { e.target.src = 'https://via.placeholder.com/400x500/2563eb/ffffff?text=V.+Rajkumar'; }} />
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <div className="lg:col-span-3">
+                                <motion.div
+                                    initial={{ opacity: 0, x: 50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                >
+                                    <div className="glass rounded-3xl p-8 border border-blue-100 shadow-lg shadow-blue-50 mb-8">
+                                        <p className="text-lg leading-relaxed text-slate-600 mb-6">
+                                            I am currently pursuing <span className="text-blue-600 font-semibold">Game Art & Design</span> at Image Creative Education and hold a <span className="text-blue-600 font-semibold">Bachelor of Engineering</span> degree from Anna University.
+                                        </p>
+                                        <p className="text-lg leading-relaxed text-slate-600">
+                                            With a professional background in <span className="text-purple-600 font-semibold">Human Resources</span> and a strong passion for game development, I transitioned into the gaming industry to pursue my creativity and technical interests. I enjoy designing gameplay systems, building immersive environments, and developing engaging player experiences using Unity.
+                                        </p>
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: 0.2 }}
+                                    className="grid grid-cols-2 gap-4"
+                                >
+                                    {stats.map((stat, index) => (
+                                        <motion.div key={stat.label}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                                            className="glass rounded-2xl p-6 text-center skill-card border border-blue-100"
+                                        >
+                                            <i className={`fas ${stat.icon} text-3xl text-blue-500 mb-3`}></i>
+                                            <div className="text-2xl font-bold mb-1 text-slate-800">{stat.value}</div>
+                                            <div className="text-sm text-slate-500">{stat.label}</div>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const SkillsSection = () => {
+            const skillCategories = [
+                {
+                    title: 'Game Development',
+                    icon: 'fa-gamepad',
+                    skills: [
+                        { name: 'Unity 6', level: 90 },
+                        { name: '2D Game Development', level: 85 },
+                        { name: '3D Game Development', level: 80 },
+                        { name: 'Gameplay Programming', level: 88 },
+                        { name: 'Level Design', level: 82 },
+                        { name: 'Game Mechanics', level: 90 },
+                        { name: 'Enemy AI', level: 75 },
+                        { name: 'Combat Systems', level: 78 },
+                        { name: 'UI Design', level: 85 },
+                        { name: 'Animation Integration', level: 80 },
+                        { name: 'Cinemachine', level: 75 }
+                    ]
+                },
+                {
+                    title: 'Programming',
+                    icon: 'fa-code',
+                    skills: [
+                        { name: 'C#', level: 90 },
+                        { name: 'Object-Oriented Programming', level: 88 }
+                    ]
+                },
+                {
+                    title: 'Tools & Software',
+                    icon: 'fa-tools',
+                    skills: [
+                        { name: 'Maya', level: 70 },
+                        { name: 'Adobe Photoshop', level: 85 },
+                        { name: 'Adobe Illustrator', level: 80 },
+                        { name: 'Adobe Substance 3D', level: 65 }
+                    ]
+                }
+            ];
+
+            return (
+                <section id="skills" className="py-20 md:py-32 relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 gradient-text">Skills & Expertise</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
+                        </motion.div>
+
+                        <div className="grid lg:grid-cols-3 gap-8">
+                            {skillCategories.map((category, catIndex) => (
+                                <motion.div key={category.title}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: catIndex * 0.2 }}
+                                    className="glass rounded-3xl p-8 skill-card border border-blue-100 shadow-lg shadow-blue-50"
+                                >
+                                    <div className="flex items-center mb-6">
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-4">
+                                            <i className={`fas ${category.icon} text-white text-xl`}></i>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-slate-800">{category.title}</h3>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        {category.skills.map((skill, index) => (
+                                            <div key={skill.name}>
+                                                <div className="flex justify-between mb-1">
+                                                    <span className="text-sm font-medium text-slate-600">{skill.name}</span>
+                                                    <span className="text-sm text-blue-600 font-semibold">{skill.level}%</span>
+                                                </div>
+                                                <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                                                    <motion.div
+                                                        className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
+                                                        initial={{ width: 0 }}
+                                                        whileInView={{ width: `${skill.level}%` }}
+                                                        viewport={{ once: true }}
+                                                        transition={{ duration: 1, delay: 0.3 + index * 0.1 }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const VideoPlayerModal = ({ videoSrc, title, onClose }) => {
+            const videoRef = useRef(null);
+            useEffect(() => {
+                if (videoRef.current) videoRef.current.play();
+            }, [videoSrc]);
+
+            return (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+                    onClick={onClose}
+                >
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.9, opacity: 0 }}
+                        transition={{ type: 'spring', damping: 25 }}
+                        className="glass-strong rounded-3xl max-w-4xl w-full border border-blue-100 shadow-2xl overflow-hidden"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="flex items-center justify-between p-4 border-b border-slate-200">
+                            <h3 className="text-lg font-bold text-slate-800">{title}</h3>
+                            <button onClick={onClose}
+                                className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-slate-100 transition-colors">
+                                <i className="fas fa-times text-slate-600"></i>
+                            </button>
+                        </div>
+                        <div className="video-player-container">
+                            <video ref={videoRef} controls autoPlay playsInline className="w-full">
+                                <source src={videoSrc} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </motion.div>
+                </motion.div>
+            );
+        };
+
+        const ProjectsSection = () => {
+            const [filter, setFilter] = useState('all');
+            const [selectedProject, setSelectedProject] = useState(null);
+            const [playingVideo, setPlayingVideo] = useState(null);
+
+            const projects = [
+                {
+                    id: 1,
+                    title: '3D Endless Runner Game',
+                    category: '3d',
+                    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80',
+                    description: 'Developed a 3D endless runner game featuring obstacle systems, player controls, smooth camera movement, environment design, and engaging gameplay mechanics.',
+                    tags: ['Unity', 'C#', '3D', 'Endless Runner'],
+                    features: ['Obstacle systems', 'Player controls', 'Smooth camera movement', 'Environment design', 'Gameplay mechanics'],
+                    githubLink: 'https://github.com/RajSangee1997',
+                    videoSrc: 'videos/endless-runner.mp4'
+                },
+                {
+                    id: 2,
+                    title: '2D Shooting Game',
+                    category: '2d',
+                    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80',
+                    description: 'Built a 2D shooting game with shooting mechanics, enemy systems, collision detection, player movement, and solid gameplay programming.',
+                    tags: ['Unity', 'C#', '2D', 'Shooter'],
+                    features: ['Shooting mechanics', 'Enemy systems', 'Collision detection', 'Player movement', 'Gameplay programming'],
+                    githubLink: 'https://github.com/RajSangee1997',
+                    videoSrc: 'videos/shooting-game.mp4'
+                },
+                {
+                    id: 3,
+                    title: '3D Open World Game',
+                    category: '3d',
+                    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80',
+                    description: 'Currently developing an open-world game using Unity featuring combat systems, health systems, character movement, animation systems, and Cinemachine camera setup.',
+                    tags: ['Unity', 'C#', '3D', 'Open World', 'Cinemachine'],
+                    features: ['Combat systems', 'Health systems', 'Character movement', 'Animation systems', 'Cinemachine camera setup'],
+                    githubLink: 'https://github.com/RajSangee1997',
+                    videoSrc: 'videos/open-world.mp4',
+                    inProgress: true
+                }
+            ];
+
+            const filteredProjects = filter === 'all' 
+                ? projects 
+                : projects.filter(p => p.category === filter);
+
+            return (
+                <section id="projects" className="py-20 md:py-32 relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 gradient-text">Featured Projects</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-8" />
+
+                            <div className="flex justify-center gap-3 flex-wrap">
+                                {['all', '2d', '3d'].map((f) => (
+                                    <button key={f}
+                                        onClick={() => setFilter(f)}
+                                        className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                                            filter === f 
+                                                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-200' 
+                                                : 'glass text-slate-600 hover:text-blue-600 border border-blue-100'
+                                        }`}
+                                    >
+                                        {f === 'all' ? 'All Projects' : f.toUpperCase() + ' Games'}
+                                    </button>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <AnimatePresence mode='popLayout'>
+                                {filteredProjects.map((project) => (
+                                    <motion.div key={project.id}
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.4 }}
+                                        className="project-card glass rounded-3xl overflow-hidden cursor-pointer group border border-blue-100 shadow-lg shadow-blue-50"
+                                        onClick={() => setSelectedProject(project)}
+                                    >
+                                        <div className="relative overflow-hidden h-56">
+                                            <img src={project.image} alt={project.title}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                                            {project.inProgress && (
+                                                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-600 text-xs font-medium border border-yellow-500/30">
+                                                    In Progress
+                                                </div>
+                                            )}
+                                            <div className="absolute bottom-4 left-4 right-4">
+                                                <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {project.tags.slice(0, 3).map(tag => (
+                                                        <span key={tag} className="px-2 py-1 rounded-md bg-white/20 text-xs text-white">
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="p-6">
+                                            <p className="text-slate-500 text-sm mb-4 line-clamp-2">{project.description}</p>
+                                            <div className="flex gap-3">
+                                                <a href={project.githubLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    className="flex-1 py-2 rounded-lg glass text-slate-600 text-sm font-medium hover:bg-slate-100 transition-colors border border-slate-200 text-center"
+                                                >
+                                                    <i className="fab fa-github mr-2"></i>GitHub
+                                                </a>
+                                                <button 
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setPlayingVideo(project);
+                                                    }}
+                                                    className="flex-1 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-red-500/25 transition-all text-center"
+                                                >
+                                                    <i className="fas fa-play-circle mr-2"></i>Watch Video
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+
+                    <AnimatePresence>
+                        {selectedProject && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay"
+                                onClick={() => setSelectedProject(null)}
+                            >
+                                <motion.div
+                                    initial={{ scale: 0.9, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0.9, opacity: 0 }}
+                                    transition={{ type: 'spring', damping: 25 }}
+                                    className="glass-strong rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-blue-100 shadow-2xl"
+                                    onClick={e => e.stopPropagation()}
+                                >
+                                    <div className="relative h-64">
+                                        <img src={selectedProject.image} alt={selectedProject.title}
+                                            className="w-full h-full object-cover" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+                                        <button onClick={() => setSelectedProject(null)}
+                                            className="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/20 transition-colors">
+                                            <i className="fas fa-times text-slate-700"></i>
+                                        </button>
+                                        <div className="absolute bottom-4 left-6 right-6">
+                                            <h3 className="text-3xl font-bold mb-2 text-white">{selectedProject.title}</h3>
+                                            <div className="flex flex-wrap gap-2">
+                                                {selectedProject.tags.map(tag => (
+                                                    <span key={tag} className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <p className="text-slate-600 mb-6 leading-relaxed">{selectedProject.description}</p>
+
+                                        <h4 className="text-lg font-semibold mb-3 text-slate-800">Key Features</h4>
+                                        <ul className="space-y-2 mb-6">
+                                            {selectedProject.features.map((feature, i) => (
+                                                <li key={i} className="flex items-center text-slate-600">
+                                                    <i className="fas fa-check-circle text-blue-500 mr-3"></i>
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <div className="flex gap-4">
+                                            <a href={selectedProject.githubLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex-1 py-3 rounded-xl glass text-slate-700 font-semibold text-center hover:bg-slate-100 transition-all border border-slate-200"
+                                            >
+                                                <i className="fab fa-github mr-2"></i>View Code
+                                            </a>
+                                            <button 
+                                                onClick={() => {
+                                                    setSelectedProject(null);
+                                                    setPlayingVideo(selectedProject);
+                                                }}
+                                                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold text-center hover:shadow-lg hover:shadow-red-500/25 transition-all"
+                                            >
+                                                <i className="fas fa-play-circle mr-2"></i>Watch Video
+                                            </button>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <AnimatePresence>
+                        {playingVideo && (
+                            <VideoPlayerModal 
+                                videoSrc={playingVideo.videoSrc}
+                                title={playingVideo.title}
+                                onClose={() => setPlayingVideo(null)}
+                            />
+                        )}
+                    </AnimatePresence>
+                </section>
+            );
+        };
+
+        const ExperienceSection = () => {
+            const experiences = [
+                {
+                    company: 'Omega Healthcare Management Services',
+                    role: 'Human Resource Executive',
+                    period: '2018 – 2019',
+                    description: 'Managed HR operations and employee relations in healthcare sector.'
+                },
+                {
+                    company: 'SCIO Management Solution',
+                    role: 'Human Resource Executive',
+                    period: '2019 – 2020',
+                    description: 'Handled recruitment and talent acquisition processes.'
+                },
+                {
+                    company: 'Access Healthcare Pvt Ltd',
+                    role: 'Human Resource Executive',
+                    period: '2020 – 2021',
+                    description: 'Oversaw employee engagement and performance management.'
+                },
+                {
+                    company: 'Global Healthcare',
+                    role: 'Human Resource Executive',
+                    period: '2021 – 2023',
+                    description: 'Led HR initiatives and organizational development strategies.'
+                }
+            ];
+
+            return (
+                <section id="experience" className="py-20 md:py-32 relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 gradient-text">Professional Experience</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
+                        </motion.div>
+
+                        <div className="relative">
+                            <div className="hidden md:block timeline-line" />
+
+                            <div className="space-y-12">
+                                {experiences.map((exp, index) => (
+                                    <motion.div key={index}
+                                        initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                                        className={`relative md:flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}
+                                    >
+                                        <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 border-4 border-[#f0f4f8] z-10" />
+
+                                        <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+                                            <div className="glass rounded-2xl p-6 skill-card border border-blue-100 shadow-lg shadow-blue-50">
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <h3 className="text-xl font-bold text-blue-600">{exp.company}</h3>
+                                                    <span className="text-sm text-slate-500 font-mono">{exp.period}</span>
+                                                </div>
+                                                <div className="text-lg font-semibold mb-2 text-slate-800">{exp.role}</div>
+                                                <p className="text-slate-500 text-sm">{exp.description}</p>
+                                            </div>
+                                        </div>
+                                        <div className="md:w-1/2" />
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const EducationSection = () => {
+            const education = [
+                {
+                    institution: 'Image Creative Education',
+                    degree: 'Game Art & Design',
+                    period: '2024 – 2026',
+                    details: 'Currently pursuing advanced game design and art fundamentals',
+                    icon: 'fa-palette'
+                },
+                {
+                    institution: 'Anna University',
+                    degree: 'Bachelor of Engineering',
+                    period: '2019',
+                    details: 'Graduated with 74%',
+                    icon: 'fa-university'
+                }
+            ];
+
+            return (
+                <section id="education" className="py-20 md:py-32 relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 gradient-text">Education</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
+                        </motion.div>
+
+                        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            {education.map((edu, index) => (
+                                <motion.div key={index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                                    className="glass rounded-3xl p-8 skill-card text-center border border-blue-100 shadow-lg shadow-blue-50"
+                                >
+                                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-6">
+                                        <i className={`fas ${edu.icon} text-2xl text-white`}></i>
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-2 text-slate-800">{edu.institution}</h3>
+                                    <div className="text-blue-600 font-semibold mb-2">{edu.degree}</div>
+                                    <div className="text-sm text-slate-500 font-mono mb-3">{edu.period}</div>
+                                    <p className="text-slate-500 text-sm">{edu.details}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const ContactSection = () => {
+            const socialLinks = [
+                { name: 'LinkedIn', icon: 'fab fa-linkedin', href: 'https://www.linkedin.com/in/rajkumar-venugopal-31b391259/', color: 'hover:text-blue-600' },
+                { name: 'GitHub', icon: 'fab fa-github', href: 'https://github.com/RajSangee1997', color: 'hover:text-slate-800' },
+                { name: 'Behance', icon: 'fab fa-behance', href: 'https://www.behance.net/RAJ2711997', color: 'hover:text-blue-500' },
+                { name: 'Itch.io', icon: 'fas fa-gamepad', href: 'https://itch.io/dashboard', color: 'hover:text-red-500' }
+            ];
+
+            return (
+                <section id="contact" className="py-20 md:py-32 relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="font-orbitron text-4xl md:text-5xl font-bold mb-4 gradient-text">Get In Touch</h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" />
+                        </motion.div>
+
+                        <div className="max-w-2xl mx-auto">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <div className="glass rounded-3xl p-8 border border-blue-100 shadow-lg shadow-blue-50">
+                                    <h3 className="text-2xl font-bold mb-6 text-slate-800 text-center">Contact Information</h3>
+
+                                    <div className="space-y-6 mb-8">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                                                <i className="fas fa-envelope text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <div className="text-sm text-slate-500">Email</div>
+                                                <a href="mailto:raj90902@gmail.com" className="font-medium text-slate-700 hover:text-blue-600 transition-colors">
+                                                    raj90902@gmail.com
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
+                                                <i className="fas fa-map-marker-alt text-purple-600"></i>
+                                            </div>
+                                            <div>
+                                                <div className="text-sm text-slate-500">Location</div>
+                                                <div className="font-medium text-slate-700">Chennai, Tamil Nadu, India</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-8">
+                                        <div className="text-sm text-slate-500 mb-4 text-center">Connect With Me</div>
+                                        <div className="flex justify-center gap-4">
+                                            {socialLinks.map((social) => (
+                                                <a key={social.name}
+                                                    href={social.href}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={`w-14 h-14 rounded-xl glass flex items-center justify-center text-xl transition-all hover:scale-110 text-slate-600 ${social.color} border border-blue-100`}
+                                                    title={social.name}
+                                                >
+                                                    <i className={social.icon}></i>
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200">
+                                        <p className="text-sm text-slate-600 text-center">
+                                            <i className="fas fa-info-circle mr-2 text-blue-500"></i>
+                                            Currently open for freelance projects and full-time opportunities in game development.
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Footer = () => {
+            return (
+                <footer className="py-12 border-t border-slate-200 relative z-10 bg-white/50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div className="text-center md:text-left">
+                                <div className="font-orbitron text-2xl font-bold gradient-text mb-2">V. RAJKUMAR</div>
+                                <p className="text-slate-500 text-sm">Unity Game Developer & Game Designer</p>
+                            </div>
+
+                            <div className="flex gap-6">
+                                <a href="#home" onClick={(e) => { e.preventDefault(); document.querySelector('#home').scrollIntoView({ behavior: 'smooth' }); }} className="text-slate-500 hover:text-blue-600 transition-colors">Home</a>
+                                <a href="#projects" onClick={(e) => { e.preventDefault(); document.querySelector('#projects').scrollIntoView({ behavior: 'smooth' }); }} className="text-slate-500 hover:text-blue-600 transition-colors">Projects</a>
+                                <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' }); }} className="text-slate-500 hover:text-blue-600 transition-colors">Contact</a>
+                            </div>
+
+                            <div className="text-center md:text-right text-sm text-slate-400">
+                                <p>© 2024 V. Rajkumar. All rights reserved.</p>
+                                <p className="mt-1">Built with React, Next.js & Tailwind CSS</p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        const App = () => {
+            const [isLoading, setIsLoading] = useState(true);
+
+            return (
+                <>
+                    <AnimatePresence>
+                        {isLoading && (
+                            <LoadingScreen onComplete={() => setIsLoading(false)} />
+                        )}
+                    </AnimatePresence>
+
+                    {!isLoading && (
+                        <div className="relative">
+                            <ParticleBackground />
+                            <CustomCursor />
+                            <ScrollProgress />
+                            <Navigation />
+
+                            <main>
+                                <HeroSection />
+                                <AboutSection />
+                                <SkillsSection />
+                                <ProjectsSection />
+                                <ExperienceSection />
+                                <EducationSection />
+                                <ContactSection />
+                            </main>
+
+                            <Footer />
+                        </div>
+                    )}
+                </>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
