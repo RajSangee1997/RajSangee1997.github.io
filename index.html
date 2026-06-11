@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V. Rajkumar | Unity Game Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1e293b; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb, #7c3aed, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+        }
+        .skill-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); }
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 8px;
+        }
+        .btn-secondary {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: white;
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #e2e8f0;
+            margin: 8px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: linear-gradient(to bottom, #2563eb, #7c3aed);
+        }
+        .timeline-item:last-child::after { display: none; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass" style="padding: 16px 0;">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="font-orbitron text-xl font-bold gradient-text">V. RAJKUMAR</a>
+            <div class="hidden md:flex gap-6">
+                <a href="#home" class="text-slate-600 hover:text-blue-600">Home</a>
+                <a href="#about" class="text-slate-600 hover:text-blue-600">About</a>
+                <a href="#skills" class="text-slate-600 hover:text-blue-600">Skills</a>
+                <a href="#projects" class="text-slate-600 hover:text-blue-600">Projects</a>
+                <a href="#experience" class="text-slate-600 hover:text-blue-600">Experience</a>
+                <a href="#education" class="text-slate-600 hover:text-blue-600">Education</a>
+                <a href="#contact" class="text-slate-600 hover:text-blue-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                    <img src="images/profile.jpg" alt="V. Rajkumar" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400/2563eb/ffffff?text=V+R'">
+                </div>
+                <div class="text-center lg:text-left">
+                    <div class="inline-block px-4 py-2 rounded-full glass text-blue-600 text-sm font-medium mb-4">
+                        <i class="fas fa-gamepad mr-2"></i>Unity Game Developer
+                    </div>
+                    <h1 class="font-orbitron text-5xl md:text-7xl font-black mb-4 gradient-text">V. RAJKUMAR</h1>
+                    <p class="text-xl text-slate-600 mb-2">Unity Game Developer | Game Designer</p>
+                    <p class="text-lg text-slate-500 mb-6">2D & 3D Game Development</p>
+                    <p class="text-slate-500 max-w-2xl mb-8">Passionate Game Designer and Unity Developer with experience in developing immersive 2D and 3D games using Unity.</p>
+                    <div>
+                        <a href="resume/V_Rajkumar_Resume.pdf" target="_blank" class="btn-primary"><i class="fas fa-file-pdf mr-2"></i>View Resume</a>
+                        <a href="resume/V_Rajkumar_Resume.pdf" download class="btn-secondary"><i class="fas fa-download mr-2"></i>Download Resume</a>
+                        <a href="#projects" class="btn-secondary"><i class="fas fa-eye mr-2"></i>View Projects</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-orbitron text-4xl font-bold mb-4 gradient-text text-center">About Me</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="glass rounded-3xl p-2 shadow-xl">
+                    <img src="images/profile.jpg" alt="V. Rajkumar" class="w-full rounded-2xl object-cover aspect-[4/5]" onerror="this.src='https://via.placeholder.com/400x500/2563eb/ffffff?text=V.+Rajkumar'">
+                </div>
+                <div>
+                    <div class="glass rounded-3xl p-8 mb-8">
+                        <p class="text-lg text-slate-600 mb-4">I am currently pursuing <span class="text-blue-600 font-semibold">Game Design & Development</span> at Image Creative Education and hold a <span class="text-blue-600 font-semibold">Bachelor of Engineering</span> degree from Anna University.</p>
+                        <p class="text-lg text-slate-600">With a professional background in <span class="text-purple-600 font-semibold">Human Resources</span> and a strong passion for game development, I transitioned into the gaming industry.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass rounded-2xl p-6 text-center">
+                            <i class="fas fa-briefcase text-3xl text-blue-500 mb-2"></i>
+                            <div class="text-2xl font-bold">5+ Years</div>
+                            <div class="text-sm text-slate-500">Experience</div>
+                        </div>
+                        <div class="glass rounded-2xl p-6 text-center">
+                            <i class="fas fa-graduation-cap text-3xl text-blue-500 mb-2"></i>
+                            <div class="text-2xl font-bold">B.E. + Game Design</div>
+                            <div class="text-sm text-slate-500">Education</div>
+                        </div>
+                        <div class="glass rounded-2xl p-6 text-center">
+                            <i class="fas fa-book-open text-3xl text-blue-500 mb-2"></i>
+                            <div class="text-2xl font-bold">Game Design & Development</div>
+                            <div class="text-sm text-slate-500">Current Learning</div>
+                        </div>
+                        <div class="glass rounded-2xl p-6 text-center">
+                            <i class="fas fa-gamepad text-3xl text-blue-500 mb-2"></i>
+                            <div class="text-2xl font-bold">AAA Game Dev</div>
+                            <div class="text-sm text-slate-500">Career Goal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-orbitron text-4xl font-bold mb-4 gradient-text text-center">Skills & Expertise</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="glass rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-gamepad text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Game Development</h3>
+                    </div>
+                    <div class="flex flex-wrap">
+                        
+                        <span class="skill-tag">2D Game Development</span>
+                        <span class="skill-tag">3D Game Development</span>
+                        <span class="skill-tag">Level Design</span>
+                    
+                        <span class="skill-tag">Enemy AI</span>
+                        <span class="skill-tag">Combat Systems</span>
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">Animation Integration</span>
+                        <span class="skill-tag">Cinemachine</span>
+                    </div>
+                </div>
+
+                <div class="glass rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-code text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Programming</h3>
+                    </div>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">C#</span>
+                        
+                    </div>
+                </div>
+
+                <div class="glass rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-tools text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800">Tools & Software</h3>
+                    </div>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Unity 6</span>
+                        <span class="skill-tag">Maya</span>
+                        <span class="skill-tag">Adobe Photoshop</span>
+                        <span class="skill-tag">Adobe Illustrator</span>
+                        <span class="skill-tag">Adobe Substance 3D</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-orbitron text-4xl font-bold mb-4 gradient-text text-center">Featured Projects</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-gamepad text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">3D Endless Runner Game</h3>
+                        <p class="text-sm text-slate-500 mb-4">Unity, C#, 3D, Endless Runner</p>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/RajSangee1997" target="_blank" class="flex-1 py-2 rounded-lg bg-slate-100 text-center text-sm font-medium">GitHub</a>
+                            <button onclick="alert('Add video: videos/endless-runner.mp4')" class="flex-1 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white text-center text-sm font-medium">Watch Video</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                        <i class="fas fa-crosshairs text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">2D Shooting Game</h3>
+                        <p class="text-sm text-slate-500 mb-4">Unity, C#, 2D, Shooter</p>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/RajSangee1997" target="_blank" class="flex-1 py-2 rounded-lg bg-slate-100 text-center text-sm font-medium">GitHub</a>
+                            <button onclick="alert('Add video: videos/shooting-game.mp4')" class="flex-1 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white text-center text-sm font-medium">Watch Video</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center">
+                        <i class="fas fa-globe text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">3D Open World Game</h3>
+                        <p class="text-sm text-slate-500 mb-4">Unity, C#, 3D, Open World</p>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/RajSangee1997" target="_blank" class="flex-1 py-2 rounded-lg bg-slate-100 text-center text-sm font-medium">GitHub</a>
+                            <button onclick="alert('Add video: videos/open-world.mp4')" class="flex-1 py-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white text-center text-sm font-medium">Watch Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-orbitron text-4xl font-bold mb-4 gradient-text text-center">Professional Experience</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold text-blue-600">Omega Healthcare Management Services</h3>
+                    <div class="text-lg font-semibold">Human Resource Executive</div>
+                    <div class="text-sm text-slate-500">2018 – 2019</div>
+                    <p class="text-slate-500 text-sm mt-2">Managed HR operations and employee relations in healthcare sector.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold text-blue-600">SCIO Management Solution</h3>
+                    <div class="text-lg font-semibold">Human Resource Executive</div>
+                    <div class="text-sm text-slate-500">2019 – 2020</div>
+                    <p class="text-slate-500 text-sm mt-2">Handled recruitment and talent acquisition processes.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold text-blue-600">Access Healthcare Pvt Ltd</h3>
+                    <div class="text-lg font-semibold">Human Resource Executive</div>
+                    <div class="text-sm text-slate-500">2020 – 2021</div>
+                    <p class="text-slate-500 text-sm mt-2">Oversaw employee engagement and performance management.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3 class="text-xl font-bold text-blue-600">Global Healthcare</h3>
+                    <div class="text-lg font-semibold">Human Resource Executive</div>
+                    <div class="text-sm text-slate-500">2021 – 2023</div>
+                    <p class="text-slate-500 text-sm mt-2">Led HR initiatives and organizational development strategies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-orbitron text-4xl font-bold mb-4 gradient-text text-center">Education</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="glass rounded-3xl p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-palette text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Image Creative Education</h3>
+                    <div class="text-blue-600 font-semibold mb-2">Game Design & Development</div>
+                    <div class="text-sm text-slate-500 mb-3">2024 – 2026</div>
+                    <p class="text-slate-500 text-sm">Currently pursuing advanced game design & development and art fundamentals</p>
+                </div>
+
+                <div class="glass rounded-3xl p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-university text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Anna University</h3>
+                    <div class="text-blue-600 font-semibold mb-2">Bachelor of Engineering</div>
+                    <div class="text-sm text-slate-500 mb-3">2019</div>
+                    <p class="text-slate-500 text-sm">Graduated with 74%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-orbitron text-4xl font-bold mb-4 gradient-text text-center">Get In Touch</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="glass rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Contact Information</h3>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-envelope text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-slate-500">Email</div>
+                                <a href="mailto:raj90902@gmail.com" class="font-medium text-slate-700 hover:text-blue-600">raj90902@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-purple-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-slate-500">Location</div>
+                                <div class="font-medium text-slate-700">Chennai, Tamil Nadu, India</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <div class="text-sm text-slate-500 mb-4 text-center">Connect With Me</div>
+                        <div class="flex justify-center gap-4">
+                            <a href="https://www.linkedin.com/in/rajkumar-venugopal-31b391259/" target="_blank" class="w-14 h-14 rounded-xl glass flex items-center justify-center text-xl text-slate-600 hover:text-blue-600 hover:scale-110 transition-all border border-blue-100" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://github.com/RajSangee1997" target="_blank" class="w-14 h-14 rounded-xl glass flex items-center justify-center text-xl text-slate-600 hover:text-slate-800 hover:scale-110 transition-all border border-blue-100" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.behance.net/RAJ2711997" target="_blank" class="w-14 h-14 rounded-xl glass flex items-center justify-center text-xl text-slate-600 hover:text-blue-500 hover:scale-110 transition-all border border-blue-100" title="Behance">
+                                <i class="fab fa-behance"></i>
+                            </a>
+                            <a href="https://itch.io/dashboard" target="_blank" class="w-14 h-14 rounded-xl glass flex items-center justify-center text-xl text-slate-600 hover:text-red-500 hover:scale-110 transition-all border border-blue-100" title="Itch.io">
+                                <i class="fas fa-gamepad"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200">
+                        <p class="text-sm text-slate-600 text-center">
+                            <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                            Currently open for freelance projects and full-time opportunities in game development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <div class="font-orbitron text-2xl font-bold gradient-text mb-2">V. RAJKUMAR</div>
+                    <p class="text-slate-500 text-sm">Unity Game Developer & Game Designer</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="#home" class="text-slate-500 hover:text-blue-600">Home</a>
+                    <a href="#projects" class="text-slate-500 hover:text-blue-600">Projects</a>
+                    <a href="#contact" class="text-slate-500 hover:text-blue-600">Contact</a>
+                </div>
+                <div class="text-center md:text-right text-sm text-slate-400">
+                    <p>© 2024 V. Rajkumar. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
